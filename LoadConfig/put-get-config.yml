@@ -1,0 +1,32 @@
+---
+  - name: Load config on devices
+    hosts: all
+    roles:
+     - Juniper.junos
+    connection: local
+    gather_facts: yes
+
+
+
+    tasks:
+     - name: Checking NETCONF connectivity
+       wait_for: host={{ inventory_hostname }} port=830 timeout=5
+     
+     - name: Add a static route
+       junos_install_config:
+         host={{ inventory_hostname }}
+         file=static-rt-config.conf
+         comment="configured by ansible"
+         overwrite=false
+         user={{ USERNAME }}
+         passwd={{ PASSWORD }}  
+       
+     - name: Display static route config
+       junos_get_config:
+         host={{ inventory_hostname }}
+         user={{ USERNAME }}
+         passwd={{ PASSWORD }}
+         logfile=get_config.log
+         dest={{ inventory_hostname }}-{{ ansible_date_time['time'] }}-conf.xml
+         format=text
+         filter="routing-options"
