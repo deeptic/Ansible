@@ -1,0 +1,11 @@
+---
+
+logdir: logs
+builddir: /Users/deeptic/Desktop/deeptic/Desktop/intfconf
+configdir: /Users/deeptic/Desktop/deeptic/Desktop/intfconf
+
+interfaces:
+  ge-0/0/1:
+    - { vlan: 100, ip_addr: 10.10.100.2/24 }
+    - { vlan: 101, ip_addr: 10.10.101.2/24 }
+    - { vlan: 207, ip_addr: 10.10.207.2/24 }

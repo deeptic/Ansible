@@ -1,0 +1,9 @@
+---
+- name: Create Junos interface configuration 
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  roles:
+    - intfconf
+
