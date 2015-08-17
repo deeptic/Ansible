@@ -1,0 +1,49 @@
+---
+  - name: Upgrade Devices
+    hosts: all
+    roles:
+     - Juniper.junos
+    connection: local
+    gather_facts: yes
+
+    vars:
+      wait_time: 3600
+      #pkg_dir: /etc/ansible/junos_images
+      pkg_dir: /Users/deeptic/Desktop/deeptic/Desktop/junos-images
+      OS_version: 12.1R4.8
+      OS_package: jinstall-ppc-12.1R4.8-domestic.tgz
+      log_dir: /etc/ansible/logs
+
+
+    tasks:
+     - name: Checking NETCONF connectivity
+       wait_for: host={{ inventory_hostname }} port=830 timeout=5
+
+     - name: Retrieve information from devices running JUNOS
+       junos_get_facts:
+         host={{ inventory_hostname }}
+         user={{ USERNAME }}
+         passwd={{ PASSWORD }}
+       register: junos
+
+     - name: Print Software Version before upgrade
+       debug: msg="{{ junos.facts.version }}"
+
+     - name: Install JUNOS image
+       junos_install_os:
+         host={{ inventory_hostname }}
+         user={{ USERNAME }}
+         passwd={{ PASSWORD }}
+         reboot=yes
+         version={{ OS_version }}
+         package={{ pkg_dir }}/{{ OS_package }}
+         logfile={{ inventory_hostname }}-upgrade-{{ ansible_date_time['time'] }}.log
+       register: sw
+       notify:
+       - wait_reboot
+
+
+    handlers:
+    - name: wait_reboot
+      wait_for: host={{ inventory_hostname }} port=830 timeout={{ wait_time }}
+      when: not sw.check_mode
