@@ -1,0 +1,28 @@
+---
+log_dir: logs
+build_dir: /Users/deeptic/Desktop/deeptic/Desktop/dhcpconf
+
+#build_dir: /Users/deeptic/Desktop/deeptic/Desktop
+#config_dir: /Users/deeptic/Desktop/deeptic/Desktop
+
+
+subnet: 42.42.42.0
+subnet_mask: 255.255.255.240
+range_start: 42.42.42.1
+range_end: 42.42.42.12
+bcast_addr: 42.42.42.15
+dns_srvr: 8.8.8.8
+domain_name: "juniper.net"
+ztp_transfer_mode: "tftp"
+default_leasetm: 21600
+max_leasetm: 43200 
+
+
+#Add additional device info here
+devices:
+  qfx3500-frodo:
+    - { mac: "40:b4:f0:35:a2:09", mgt_ip: 42.42.42.1, tftp_srvr: "42.42.42.14", img: "/tftpboot/jinstall-qfx-3-14.1X53-D25.2-domestic-signed.tgz", alt_img: "/tftpboot/jinstall-qfx-3-14.1X53-D25.2-domestic-signed.tgz", conf: "/tftpboot/example_frodo.config"  }
+  qfx3500-pippin:
+    - { mac: "99:b4:f0:35:a2:09", mgt_ip: 9.9.9.9, tftp_srvr: "42.42.42.99", img: "/tftpboot/jinstall-qfx-3-14.1X53-D25.2-domestic-signed.tgz", alt_img: "/tftpboot/jinstall-qfx-3-14.1X53-D25.2-domestic-signed.tgz", conf: "/tftpboot/example_pippin.config"  }
+  
+

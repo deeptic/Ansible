@@ -1,0 +1,24 @@
+---
+- name: Create DHCP config file for ZTP
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  pre_tasks:
+  - name: remove host-baseconf directory
+    file: path={{ build_dir }} state=absent
+    register: dhcpconfdir
+  - name: create dhcp config directory
+    file: path={{dhcpconfdir.path}} state=directory
+
+  roles:
+    - dhcpconf
+    
+
+  post_tasks:
+    - name: Copy final dhcpd.conf to desired server
+      script: ./dhcpcopy.py --host {{ inventory_hostname }} --username {{ USERNAME }} --password {{ PASSWORD }}
+      register: result
+
+    - debug: var=result
+    

@@ -1,0 +1,4 @@
+---
+- name: template building
+  template: src=main.conf dest={{ build_dir }}/dhcpd.conf
+  #template: src=main.conf dest={{ build_dir }}
