@@ -1,0 +1,6 @@
+---
+builddir: /etc/ansible/playbooks/FF-Gen
+
+ips:
+  - ['191.0.0.0', '38.0.1.1']
+  - ['191.0.0.0', '38.0.2.1']

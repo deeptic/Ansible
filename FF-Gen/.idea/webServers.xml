@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5189b966-b59d-4a5f-ae11-c9b8926a1ed6" name="AutomationSandbox-VM" url="http://10.161.41.141">
+        <fileTransfer host="10.161.41.141" port="22" rootFolder="/etc/ansible/playbooks" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

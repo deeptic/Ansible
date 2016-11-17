@@ -1,0 +1,29 @@
+---
+- name: Create Junos Firewall Filter configuration
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  pre_tasks:
+    - name: Create IP addresses for FF term generation
+      script: ./ip-gen.py
+      register: result
+
+  roles:
+    - ff-gen
+
+#  post_tasks:
+#    - name: Checking NETCONF connectivity
+#      wait_for: host={{ inventory_hostname }} port=830 timeout=5
+#    - name: Merging FF config
+#      junos_template:
+#        host: "10.161.32.82"
+#        src: ff-generated.conf
+#        action: merge
+#        comment: "Committed by Ansible"
+       # transport: netconf
+
+        #provider: "{{ netconf }}"
+        #comment=""
+        #overwrite=false
+
